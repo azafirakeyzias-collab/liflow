@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIFLOW - Flow Your Life Better | Premium Personal Life Operating System</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Poppins (Clean Modern Sans) & Playfair Display (Serif Elegance) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Muted premium Sage Green from the official 6197209716312706366.jpg logo branding
+            liflowGreen: '#7F987E',
+            liflowSoftGreen: '#C1D1C3',
+            liflowBlue: '#7BBCE6',
+            liflowYellow: '#FCD385',
+            liflowPurple: '#C2B2F0',
+            liflowBg: '#FAF9F6',
+            liflowDark: '#1C1917',
+            liflowMuted: '#78716C'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Sleek Scrollbar Design */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF9F6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #E7E5E4;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D6D3D1;
+    }
+    
+    /* Elegant Views & Fade Transitions */
+    .view-transition {
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .hidden-view {
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+    }
+    
+    .active-view {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    /* Distraction-Free focus mode engine inside interactive mockup */
+    .focus-active .mockup-distract-hide {
+      opacity: 0.1;
+      filter: blur(2px);
+    }
+
+    /* Custom animated elements */
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: floating 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-liflowBg text-stone-800 selection:bg-liflowSoftGreen/40 antialiased min-h-screen flex flex-col justify-between transition-colors duration-500">
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2.5 pointer-events-none"></div>
+
+  <!-- PUBLIC WEBSITE NAVIGATION HEADER -->
+  <header class="w-full bg-white/85 backdrop-blur-md border-b border-stone-200/60 sticky top-0 z-40 transition-all">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('landing')">
+        <!-- Official Logo Image integrated from 6197209716312706366.jpg -->
+        <img src="liflow.png" alt="LIFLOW Logo" class="w-10 h-10 rounded-xl shadow-sm object-cover border border-stone-100">
+        <div>
+          <span class="text-lg font-bold tracking-tight text-stone-900 block leading-none">LIFLOW</span>
+          <span class="text-[9px] text-stone-400 font-medium tracking-widest uppercase">Life Operating System</span>
+        </div>
+      </div>
+      
+      <!-- Visitor Nav Links (Always Public) -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-stone-600">
+        <button onclick="navigateTo('landing')" id="nav-btn-landing" class="text-liflowGreen transition-all">Home</button>
+        <button onclick="navigateTo('about')" id="nav-btn-about" class="hover:text-liflowGreen transition-all">About Philosophy</button>
+        <button onclick="navigateTo('features')" id="nav-btn-features" class="hover:text-liflowGreen transition-all">10 Core Features</button>
+        <button onclick="navigateTo('pricing')" id="nav-btn-pricing" class="hover:text-liflowGreen transition-all">Plans</button>
+        <button onclick="navigateTo('faq')" id="nav-btn-faq" class="hover:text-liflowGreen transition-all">FAQ</button>
+        <button onclick="navigateTo('contact')" id="nav-btn-contact" class="hover:text-liflowGreen transition-all">Contact</button>
+        <button onclick="navigateTo('blog')" id="nav-btn-blog" class="hover:text-liflowGreen transition-all">Mindful Journal</button>
+      </nav>
+
+      <!-- Access CTAs (Lead Capture) -->
+      <div class="flex items-center gap-3">
+        <button onclick="showLeadCapture('Login')" class="text-xs font-bold uppercase tracking-wider text-stone-600 hover:text-liflowGreen transition-all py-2 px-4">Log In</button>
+        <button onclick="showLeadCapture('Register')" class="bg-liflowGreen hover:bg-stone-700 text-white text-xs font-bold uppercase tracking-widest py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+          Start Free
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN MULTI-PAGE WRAPPER (Public Marketing Engine) -->
+  <main class="w-full flex-grow">
+
+    <!-- 1. LANDING PAGE VIEW -->
+    <div id="view-landing" class="view-transition active-view">
+      <!-- Hero Section -->
+      <section class="max-w-7xl mx-auto px-6 py-16 lg:py-24 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-stone-100 border border-stone-200 text-liflowGreen font-bold text-[10px] uppercase tracking-wider rounded-full">
+            <span class="w-2 h-2 rounded-full bg-liflowGreen animate-pulse"></span> Inspired by 55d29783-1dd2-4905-b1d8-994f42d4055b.png Design Style
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-900 leading-tight">
+            Flow Your Life <span class="text-liflowGreen italic">Better.</span>
+          </h1>
+          <p class="text-stone-600 text-sm sm:text-base md:text-lg leading-relaxed font-light max-w-xl">
+            Build a more organized, balanced, and consistent life with one integrated life management system. Plan, track, do, and evaluate without guilt.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-3">
+            <button onclick="showLeadCapture('Get Started')" class="bg-liflowGreen hover:bg-stone-700 text-white text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+              Start Free Today
+            </button>
+            <button onclick="scrollToInteractiveMockup()" class="border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-full shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-2">
+              <i class="fa-solid fa-mobile-screen-button text-[10px] text-liflowGreen"></i> Try App Live Tour
+            </button>
+          </div>
+        </div>
+        <!-- Hero Illustration containing visual elements from both references -->
+        <div class="lg:col-span-5 flex justify-center relative">
+          <div class="absolute w-[360px] h-[360px] bg-gradient-to-tr from-liflowSoftGreen/25 to-liflowBlue/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
+          <!-- Premium Circular SVG Concept Illustration mapped from 55d29783-1dd2-4905-b1d8-994f42d4055b.png with integrated logo center -->
+          <svg class="w-full max-w-sm animate-float" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="75" class="stroke-stone-200" stroke-width="2" stroke-dasharray="6 6" />
+            <!-- Node circles -->
+            <circle cx="100" cy="25" r="16" class="fill-white stroke-liflowGreen" stroke-width="3" />
+            <circle cx="175" cy="100" r="16" class="fill-white stroke-liflowBlue" stroke-width="3" />
+            <circle cx="100" cy="175" r="16" class="fill-white stroke-liflowYellow" stroke-width="3" />
+            <circle cx="25" cy="100" r="16" class="fill-white stroke-liflowPurple" stroke-width="3" />
+            <!-- Node Labels -->
+            <text x="100" y="29" font-family="Poppins" font-size="8" fill="#1C1917" text-anchor="middle" font-weight="bold">PLAN</text>
+            <text x="175" y="104" font-family="Poppins" font-size="8" fill="#1C1917" text-anchor="middle" font-weight="bold">DO</text>
+            <text x="100" y="179" font-family="Poppins" font-size="8" fill="#1C1917" text-anchor="middle" font-weight="bold">TRACK</text>
+            <text x="25" y="104" font-family="Poppins" font-size="8" fill="#1C1917" text-anchor="middle" font-weight="bold">EVAL</text>
+            <!-- Center logo container representing 6197209716312706366.jpg badge -->
+            <circle cx="100" cy="100" r="32" class="fill-liflowGreen" />
+            <clipPath id="circleClip">
+              <circle cx="100" cy="100" r="30" />
+            </clipPath>
+            <!-- Render elegant vector outline of the custom logo cycle & sprout inside the SVG center -->
+            <path d="M100 82 A 18 18 0 1 1 82 100" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            <path d="M112 88 C 114 85, 118 85, 118 89 C 118 92, 113 95, 110 95 C 109 91, 110 89, 112 88 Z" fill="white"/>
+            <path d="M96 112 C 102 109, 108 114, 114 111" fill="none" stroke="white" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- BRAND CORE PHILOSOPHY VALUES SECTION -->
+      <section class="max-w-7xl mx-auto px-6 py-20 border-t border-stone-200/50">
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Our Soul</span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-stone-900">Empathy-Driven Life Architecture</h2>
+          <p class="text-stone-500 text-xs sm:text-sm font-light max-w-xl mx-auto">
+            Traditional tools make you feel like a machine. We designed LIFLOW around your natural human rhythm. Here is the compass that guides everything we design.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Value 1 -->
+          <div class="bg-white border border-stone-200/60 p-8 rounded-3xl hover:shadow-md transition duration-300 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-stone-50 text-liflowGreen flex items-center justify-center text-xl shadow-xs">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <h3 class="font-serif font-bold text-stone-900 text-base">Empathy Over Streaks</h3>
+            <p class="text-xs text-stone-500 leading-relaxed font-light">
+              We never penalize or shame you for resting. LIFLOW treats life’s pauses as safe recovery phases, offering supportive restart challenges instead of strict punishment.
+            </p>
+          </div>
+
+          <!-- Value 2 -->
+          <div class="bg-white border border-stone-200/60 p-8 rounded-3xl hover:shadow-md transition duration-300 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-sky-50 text-liflowBlue flex items-center justify-center text-xl shadow-xs">
+              <i class="fa-solid fa-compass"></i>
+            </div>
+            <h3 class="font-serif font-bold text-stone-900 text-base">Conscious Balance</h3>
+            <p class="text-xs text-stone-500 leading-relaxed font-light">
+              It is not about rushing or moving at breakneck speed. Our 6-pillar balance wheel and unified dashboard are engineered to help you find central harmony.
+            </p>
+          </div>
+
+          <!-- Value 3 -->
+          <div class="bg-white border border-stone-200/60 p-8 rounded-3xl hover:shadow-md transition duration-300 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center text-xl shadow-xs">
+              <i class="fa-solid fa-feather-pointed"></i>
+            </div>
+            <h3 class="font-serif font-bold text-stone-900 text-base">Organic Micro-wins</h3>
+            <p class="text-xs text-stone-500 leading-relaxed font-light">
+              Great things are made of tiny blocks. By promoting small habit suggestions that take less than 1 minute, we remove willpower friction entirely.
+            </p>
+          </div>
+
+          <!-- Value 4 -->
+          <div class="bg-white border border-stone-200/60 p-8 rounded-3xl hover:shadow-md transition duration-300 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-purple-50 text-liflowPurple flex items-center justify-center text-xl shadow-xs">
+              <i class="fa-solid fa-vault"></i>
+            </div>
+            <h3 class="font-serif font-bold text-stone-900 text-base">Sacred Space & Privacy</h3>
+            <p class="text-xs text-stone-500 leading-relaxed font-light">
+              Your thoughts, mood reflections, and financial records are sacred. We store your data securely with zero tracking, data-mining, or external ad networks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 CORE ECOSYSTEM PILLARS SECTION -->
+      <section class="bg-white border-y border-stone-200/60 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="text-center max-w-3xl mx-auto space-y-4">
+            <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider">Unparalleled Cohesion</span>
+            <h2 class="text-3xl font-serif font-bold text-stone-900">4 Core Ecosystem Pillars</h2>
+            <p class="text-stone-500 text-xs sm:text-sm font-light">The foundational workflow adapted from the original 55d29783-1dd2-4905-b1d8-994f42d4055b.png conceptual map.</p>
+          </div>
+          
+          <div class="grid md:grid-cols-4 gap-8 mt-12">
+            <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100 hover:scale-105 transition-all">
+              <span class="text-2xl mb-3 block">📅</span>
+              <h4 class="font-bold text-stone-900 text-sm">Plan</h4>
+              <p class="text-[11px] text-stone-500 mt-2 leading-relaxed">Map your targets, structure tomorrow's schedules, and establish healthy financial priorities with minimal friction.</p>
+            </div>
+            <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100 hover:scale-105 transition-all">
+              <span class="text-2xl mb-3 block">⚡</span>
+              <h4 class="font-bold text-stone-900 text-sm">Do</h4>
+              <p class="text-[11px] text-stone-500 mt-2 leading-relaxed">Boost deep productivity utilizing the distraction-free visual Pomodoro and tailored deep work sessions.</p>
+            </div>
+            <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100 hover:scale-105 transition-all">
+              <span class="text-2xl mb-3 block">📊</span>
+              <h4 class="font-bold text-stone-900 text-sm">Track</h4>
+              <p class="text-[11px] text-stone-500 mt-2 leading-relaxed">Collect streak accomplishments, financial budget allocations, and visual lifestyle scores completely dynamically.</p>
+            </div>
+            <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100 hover:scale-105 transition-all">
+              <span class="text-2xl mb-3 block">🧘</span>
+              <h4 class="font-bold text-stone-900 text-sm">Evaluate</h4>
+              <p class="text-[11px] text-stone-500 mt-2 leading-relaxed">Perform warm and meditative evening reviews to prepare for the next step of the continuous cycle.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HIGH-FIDELITY LIVE INTERACTIVE SMARTPHONE WORKSPACE PREVIEW -->
+      <section id="interactive-product-tour" class="max-w-7xl mx-auto px-6 py-20 border-b border-stone-200/40">
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Interactive Experience</span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-stone-900">Explore the 10-Screen UI Flow Live</h2>
+          <p class="text-stone-500 text-xs sm:text-sm font-light max-w-xl mx-auto">
+            Test and interact with our actual application screens modeled directly from the verbatim 55d29783-1dd2-4905-b1d8-994f42d4055b.png blueprint, right here from the website.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <!-- Live Interactive Screen Controls (Left Side) -->
+          <div class="lg:col-span-7 space-y-6">
+            <span class="text-xs font-bold text-stone-400 uppercase tracking-widest block">Select A Mobile Screen:</span>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button onclick="simulateMockupScreen('onboarding')" id="mock-btn-onboarding" class="p-3 text-left border rounded-2xl bg-white border-liflowGreen text-stone-800 text-xs font-semibold flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-liflowGreen"></span> 1. Onboarding
+              </button>
+              <button onclick="simulateMockupScreen('dashboard')" id="mock-btn-dashboard" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 2. Dashboard
+              </button>
+              <button onclick="simulateMockupScreen('planner')" id="mock-btn-planner" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 3. Daily Planner
+              </button>
+              <button onclick="simulateMockupScreen('habits')" id="mock-btn-habits" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 4. Habit Tracker
+              </button>
+              <button onclick="simulateMockupScreen('money')" id="mock-btn-money" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 5. Money Tracker
+              </button>
+              <button onclick="simulateMockupScreen('focus')" id="mock-btn-focus" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 6. Focus Mode
+              </button>
+              <button onclick="simulateMockupScreen('reflection')" id="mock-btn-reflection" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 7. Daily Reflection
+              </button>
+              <button onclick="simulateMockupScreen('tomorrow')" id="mock-btn-tomorrow" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 8. Plan Tomorrow
+              </button>
+              <button onclick="simulateMockupScreen('progress')" id="mock-btn-progress" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 9. Progress & Analytics
+              </button>
+              <button onclick="simulateMockupScreen('profile')" id="mock-btn-profile" class="p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all">
+                <span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> 10. Profile
+              </button>
+            </div>
+
+            <!-- Contextual Screen Description Box -->
+            <div class="bg-stone-100/50 p-6 rounded-3xl border border-stone-200/40 space-y-2">
+              <h4 id="tour-screen-title" class="font-serif font-bold text-stone-900 text-base">1. Welcome Onboarding</h4>
+              <p id="tour-screen-desc" class="text-stone-500 text-xs leading-relaxed font-light">
+                This screen welcomes you into the LIFLOW ecosystem. Setup your primary goals and parameters with a beautiful warm, balanced onboarding sequence designed with organic calm illustration assets.
+              </p>
+            </div>
+          </div>
+
+          <!-- Smartphone Core Frame -->
+          <div class="lg:col-span-5 flex justify-center relative">
+            <div class="absolute w-[320px] h-[320px] bg-gradient-to-tr from-liflowSoftGreen/20 to-liflowBlue/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
+            
+            <div class="relative w-[310px] h-[610px] bg-white rounded-[45px] shadow-2xl border-[10px] border-stone-900 overflow-hidden flex flex-col justify-between p-4 transition-all duration-300">
+              <!-- Notch Bar -->
+              <div class="w-full flex justify-between items-center px-2 pt-1 text-[9px] font-bold text-stone-500 z-10">
+                <span id="mockup-clock-time">09:41</span>
+                <div class="w-24 h-4 bg-stone-900 rounded-full absolute left-1/2 -translate-x-1/2 top-1"></div>
+                <div class="flex gap-1.5 items-center">
+                  <i class="fa-solid fa-signal"></i>
+                  <i class="fa-solid fa-wifi"></i>
+                  <i class="fa-solid fa-battery-full text-xs"></i>
+                </div>
+              </div>
+
+              <!-- Simulator Viewport -->
+              <div class="flex-grow overflow-y-auto mt-4 px-2 py-1 flex flex-col justify-between" id="mockup-viewport">
+                <!-- Loaded Dynamically below -->
+              </div>
+
+              <!-- Bottom Bar Emulator -->
+              <div class="w-full bg-white border-t border-stone-100 pt-2 flex justify-between px-3 text-stone-400 text-[9px] z-10">
+                <div class="flex flex-col items-center cursor-pointer text-liflowGreen">
+                  <i class="fa-solid fa-house-chimney"></i>
+                  <span class="text-[7px] mt-0.5">Home</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer">
+                  <i class="fa-regular fa-calendar"></i>
+                  <span class="text-[7px] mt-0.5">Plan</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer">
+                  <i class="fa-solid fa-droplet"></i>
+                  <span class="text-[7px] mt-0.5">Habits</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer">
+                  <i class="fa-solid fa-brain"></i>
+                  <span class="text-[7px] mt-0.5">Reflect</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIAL SLIDER & KEY STATS -->
+      <section class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Community Love</span>
+          <h3 class="text-3xl font-serif font-bold text-stone-900 leading-tight">What balanced minds are saying</h3>
+          <div class="bg-stone-100/50 border p-6 rounded-3xl relative">
+            <i class="fa-solid fa-quote-left text-liflowGreen/25 text-4xl absolute -top-4 -left-2"></i>
+            <p class="text-xs sm:text-sm text-stone-600 italic font-light leading-relaxed">
+              "LIFLOW changed my complete relationship with productivity tools. Instead of feeling constant guilt over unchecked items, the soft reset challenge and meditative focus timers make me feel supported at every single step."
+            </p>
+            <div class="flex items-center gap-3 mt-4">
+              <div class="w-10 h-10 rounded-full bg-stone-200 border-2 border-white flex items-center justify-center font-bold text-xs">M</div>
+              <div>
+                <span class="text-xs font-bold text-stone-900 block leading-none">Mira S.</span>
+                <span class="text-[10px] text-stone-400">UI Designer & Creator</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-7 grid grid-cols-2 gap-6 text-center">
+          <div class="bg-white border p-8 rounded-3xl shadow-xs">
+            <span class="text-4xl font-extrabold text-liflowGreen block">150K+</span>
+            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block mt-2">Active Seekers</span>
+          </div>
+          <div class="bg-white border p-8 rounded-3xl shadow-xs">
+            <span class="text-4xl font-extrabold text-liflowBlue block">98%</span>
+            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block mt-2">Consistency Rate</span>
+          </div>
+          <div class="bg-white border p-8 rounded-3xl shadow-xs">
+            <span class="text-4xl font-extrabold text-liflowYellow block">86pt</span>
+            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block mt-2">Avg Life Score</span>
+          </div>
+          <div class="bg-white border p-8 rounded-3xl shadow-xs">
+            <span class="text-4xl font-extrabold text-stone-550 block">0%</span>
+            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block mt-2">Punishment Design</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED JOURNAL NOTES (Teaser) -->
+      <section class="max-w-7xl mx-auto px-6 py-16 border-t border-stone-200/40">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+          <div class="space-y-3">
+            <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Mindfulness Reads</span>
+            <h2 class="text-3xl font-serif font-bold text-stone-900">Notes from our Journal</h2>
+            <p class="text-stone-500 text-xs sm:text-sm font-light max-w-xl">Empathetic articles written to help you find balance, flow gently, and avoid toxic hyper-productivity burnout.</p>
+          </div>
+          <button onclick="navigateTo('blog')" class="bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold uppercase tracking-wider py-3 px-6 rounded-full transition flex items-center gap-2">
+            Explore All Reads <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </button>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Featured Card 1 -->
+          <div class="bg-white border border-stone-200/60 rounded-3xl overflow-hidden shadow-xs hover:shadow-md transition duration-300 flex flex-col justify-between">
+            <div>
+              <img src="https://placehold.co/600x400/7F987E/ffffff?text=Guilt-Free+Restarts" alt="Restarts" class="w-full h-48 object-cover">
+              <div class="p-6 space-y-3">
+                <span class="text-[9px] font-bold text-liflowGreen uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full w-max block">Self Care</span>
+                <h3 class="font-serif font-bold text-stone-900 text-base leading-snug">The Art of Guilt-Free Restarts</h3>
+                <p class="text-[11px] text-stone-500 leading-relaxed font-light">Why conventional apps fail by punishing you for taking breaks, and how to embrace a supportive reset challenge with ease.</p>
+              </div>
+            </div>
+            <div class="p-6 pt-0">
+              <button onclick="openMarketingArticle('restarts')" class="text-xs font-bold text-liflowGreen hover:text-stone-700 flex items-center gap-1">Read Article <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+            </div>
+          </div>
+
+          <!-- Featured Card 2 -->
+          <div class="bg-white border border-stone-200/60 rounded-3xl overflow-hidden shadow-xs hover:shadow-md transition duration-300 flex flex-col justify-between">
+            <div>
+              <img src="https://placehold.co/600x400/7BBCE6/ffffff?text=Mindful+Productivity" alt="Productivity" class="w-full h-48 object-cover">
+              <div class="p-6 space-y-3">
+                <span class="text-[9px] font-bold text-liflowBlue uppercase tracking-widest bg-sky-50 px-2.5 py-1 rounded-full w-max block">Mindset</span>
+                <h3 class="font-serif font-bold text-stone-900 text-base leading-snug">Escaping the Toxic Hustle Trap</h3>
+                <p class="text-[11px] text-stone-500 leading-relaxed font-light">How to transition your productivity philosophy from "relentless streaks" to "harmonious cyclic balance" across 6 key pillars.</p>
+              </div>
+            </div>
+            <div class="p-6 pt-0">
+              <button onclick="openMarketingArticle('hustle')" class="text-xs font-bold text-liflowGreen hover:text-stone-700 flex items-center gap-1">Read Article <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+            </div>
+          </div>
+
+          <!-- Featured Card 3 -->
+          <div class="bg-white border border-stone-200/60 rounded-3xl overflow-hidden shadow-xs hover:shadow-md transition duration-300 flex flex-col justify-between">
+            <div>
+              <img src="https://placehold.co/600x400/FCD385/ffffff?text=Tiny+Habits+Design" alt="Tiny Habits" class="w-full h-48 object-cover">
+              <div class="p-6 space-y-3">
+                <span class="text-[9px] font-bold text-amber-500 bg-amber-50 px-2.5 py-1 rounded-full w-max block">Habits</span>
+                <h3 class="font-serif font-bold text-stone-900 text-base leading-snug">Small Moves, Big Streaks</h3>
+                <p class="text-[11px] text-stone-500 leading-relaxed font-light">The psychological blueprint of tiny habits. Learn how a single glass of water or 1-minute breathing resets your cognitive load.</p>
+              </div>
+            </div>
+            <div class="p-6 pt-0">
+              <button onclick="openMarketingArticle('tiny')" class="text-xs font-bold text-liflowGreen hover:text-stone-700 flex items-center gap-1">Read Article <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 2. ABOUT PHILOSOPHY PAGE VIEW -->
+    <div id="view-about" class="view-transition hidden-view max-w-4xl mx-auto px-6 py-16 space-y-12">
+      <div class="text-center space-y-4">
+        <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Our Soul & Vision</span>
+        <h2 class="text-4xl font-serif font-bold text-stone-900">Guilt-Free Life Architecture</h2>
+        <p class="text-stone-500 font-light max-w-xl mx-auto">We designed LIFLOW to challenge the stressful paradigm of toxic hyper-productivity.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-center bg-white p-8 rounded-3xl border border-stone-200/60 shadow-sm">
+        <div class="space-y-4">
+          <h4 class="font-bold text-stone-900 text-lg">Why LIFLOW Was Built</h4>
+          <p class="text-xs text-stone-600 leading-relaxed font-light">
+            Conventional apps penalize you with streak losses and dark warning states when life gets in the way. They treat you like a factory machine. LIFLOW assumes you are human.
+          </p>
+          <p class="text-xs text-stone-600 leading-relaxed font-light">
+            Our software metrics are explicitly engineered to hold space for recovery. This is why we include gentle, non-punishing reset systems and customizable meditative pauses right inside our core design engine.
+          </p>
+        </div>
+        <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100 flex flex-col justify-center gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-100 text-liflowGreen flex items-center justify-center text-xs">✨</div>
+            <span class="text-xs font-bold text-stone-800">No Guilt Framework Pattern</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-sky-100 text-liflowBlue flex items-center justify-center text-xs">🧘</div>
+            <span class="text-xs font-bold text-stone-800">Always Supportive Microcopy</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-purple-100 text-liflowPurple flex items-center justify-center text-xs">🔄</div>
+            <span class="text-xs font-bold text-stone-800">Integrated Cyclic Framework Loop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. FEATURES PAGE VIEW (Deep Dive into the 10 flows) -->
+    <div id="view-features" class="view-transition hidden-view max-w-7xl mx-auto px-6 py-16 space-y-16">
+      <div class="text-center space-y-4">
+        <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">The Interface Catalog</span>
+        <h2 class="text-4xl font-serif font-bold text-stone-900">Explore All 10 Core Application Flows</h2>
+        <p class="text-stone-500 font-light max-w-xl mx-auto">A beautifully cohesive personal matrix adapted directly from the 55d29783-1dd2-4905-b1d8-994f42d4055b.png specification document.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Flow 1 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full uppercase tracking-wider">1. Onboarding</span>
+          <h4 class="font-bold text-stone-900 text-base">Introduction Loop Setup</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Input your primary focus, values, and healthy goals calmly from day one. Smooth and responsive layout setup.</p>
+        </div>
+        <!-- Flow 2 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full uppercase tracking-wider">2. Dashboard</span>
+          <h4 class="font-bold text-stone-900 text-base">Ecosystem Glance</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">A highly unified summary display. Instantly see your Life Score, Life Balance Wheel, Daily planner list, and habits.</p>
+        </div>
+        <!-- Flow 3 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full uppercase tracking-wider">3. Daily Planner</span>
+          <h4 class="font-bold text-stone-900 text-base">Prioritized Agenda</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Plan your schedule, add today's activities with custom High/Medium/Low priority, and organize categories beautifully.</p>
+        </div>
+        <!-- Flow 4 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full uppercase tracking-wider">4. Habit Tracker</span>
+          <h4 class="font-bold text-stone-900 text-base">Supportive Micro-Habits</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Keep healthy micro-habits active without willpower friction. Build natural streaks backed by safe tiny habit suggestions.</p>
+        </div>
+        <!-- Flow 5 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full uppercase tracking-wider">5. Money Tracker</span>
+          <h4 class="font-bold text-stone-900 text-base">Mindful Budget Ledger</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Record financial flows cleanly. Avoid complex tracking spreadsheets while maintaining healthy limits with warmth.</p>
+        </div>
+        <!-- Flow 6 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full uppercase tracking-wider">6. Focus Mode</span>
+          <h4 class="font-bold text-stone-900 text-base">Deep Mind Pomodoro</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Mute external notifications and center your attention with Pomodoro, custom Deep work sessions, and distraction-free overlay screens.</p>
+        </div>
+        <!-- Flow 7 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full uppercase tracking-wider">7. Daily Reflection</span>
+          <h4 class="font-bold text-stone-900 text-base">Evening Mental Prompts</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Check in with your mood. Document small gratitude blocks, achievements, and hurdles comfortably before bed.</p>
+        </div>
+        <!-- Flow 8 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full uppercase tracking-wider">8. Plan Tomorrow</span>
+          <h4 class="font-bold text-stone-900 text-base">Continuous Loop Connector</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Transition your evening notes immediately into tomorrow's schedule and safe budgets. Rest cleanly and wake up focused.</p>
+        </div>
+        <!-- Flow 9 -->
+        <div class="bg-white border border-stone-200/60 p-6 rounded-3xl space-y-3 hover:shadow-md transition">
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full uppercase tracking-wider">9. Progress &amp; Analytics</span>
+          <h4 class="font-bold text-stone-900 text-base">Life Balance Radar Wheel</h4>
+          <p class="text-xs text-stone-500 leading-relaxed font-light">Visualize your 6 vital lifestyle coordinates dynamically. Ensure balanced alignment between productivity and resting phases.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. PRICING PAGE VIEW -->
+    <div id="view-pricing" class="view-transition hidden-view max-w-5xl mx-auto px-6 py-16 space-y-12">
+      <div class="text-center space-y-4">
+        <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">The Plans</span>
+        <h2 class="text-4xl font-serif font-bold text-stone-900">Simple, Transparent Pricing</h2>
+        <p class="text-stone-500 font-light max-w-xl mx-auto">No complex tier limits. Experience full mental clarity without financial stress.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+        <!-- Plan 1 -->
+        <div class="bg-white border border-stone-200 p-8 rounded-3xl space-y-6 flex flex-col justify-between shadow-xs">
+          <div class="space-y-3">
+            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block">LIFLOW Free</span>
+            <span class="text-3xl font-extrabold text-stone-900">IDR 0 <span class="text-xs font-normal text-stone-400">/ forever</span></span>
+            <p class="text-[11px] text-stone-500 leading-relaxed">Full access to fundamental daily perencana agenda, basic habits check, and Pomodoro timer.</p>
+            <ul class="space-y-2 text-[11px] text-stone-600 pt-3">
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Daily Planner</li>
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Habit Reminders & Streaks</li>
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Standard Pomodoro Mode</li>
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Local Secure Sync</li>
+            </ul>
+          </div>
+          <button onclick="showLeadCapture('Start Free Plan')" class="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 text-[10px] font-bold uppercase tracking-widest py-3 rounded-xl transition">Start Now</button>
+        </div>
+
+        <!-- Plan 2 -->
+        <div class="bg-white border-2 border-liflowGreen p-8 rounded-3xl space-y-6 flex flex-col justify-between relative shadow-md">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-liflowGreen text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Premium Choice</div>
+          <div class="space-y-3">
+            <span class="text-[10px] font-bold text-liflowGreen uppercase tracking-widest block">LIFLOW Premium</span>
+            <span class="text-3xl font-extrabold text-stone-900">IDR 45.000 <span class="text-xs font-normal text-stone-400">/ month</span></span>
+            <p class="text-[11px] text-stone-500 leading-relaxed">Total access to continuous cycle Tomorrow Planning, advanced Analytics, Money logs, and complete backup.</p>
+            <ul class="space-y-2 text-[11px] text-stone-600 pt-3">
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Everything in Free</li>
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Deep Work & Custom Timer Logs</li>
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Money Tracker Ledger & Targets</li>
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Complete Sunday Auto-Summary</li>
+              <li><i class="fa-solid fa-check text-liflowGreen mr-1.5"></i> Interactive Balance Radar Wheel</li>
+            </ul>
+          </div>
+          <button onclick="showLeadCapture('Unlock Premium Plan')" class="w-full bg-liflowGreen hover:bg-stone-700 text-white text-[10px] font-bold uppercase tracking-widest py-3 rounded-xl shadow-md transition">Unlock Premium</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. FAQ PAGE VIEW -->
+    <div id="view-faq" class="view-transition hidden-view max-w-3xl mx-auto px-6 py-16 space-y-8">
+      <div class="text-center space-y-4">
+        <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Questions</span>
+        <h2 class="text-4xl font-serif font-bold text-stone-900">Frequently Asked Questions</h2>
+        <p class="text-stone-500 font-light">Find quick answers about our premium design system philosophy.</p>
+      </div>
+
+      <div class="space-y-4 pt-6">
+        <!-- FAQ item 1 -->
+        <div class="bg-white border p-6 rounded-2xl cursor-pointer" onclick="toggleFaq(1)">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-stone-900 text-xs sm:text-sm">What does "no punishment design" mean?</h4>
+            <i id="faq-icon-1" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform"></i>
+          </div>
+          <p id="faq-answer-1" class="text-[11px] text-stone-500 mt-3 leading-relaxed hidden">
+            LIFLOW never blocks you, shows red alerts, or shames you when plans break. We built flexible "Reset Challenges" to help you rebuild momentum gently.
+          </p>
+        </div>
+
+        <!-- FAQ item 2 -->
+        <div class="bg-white border p-6 rounded-2xl cursor-pointer" onclick="toggleFaq(2)">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-stone-900 text-xs sm:text-sm">Is my data secure and private?</h4>
+            <i id="faq-icon-2" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform"></i>
+          </div>
+          <p id="faq-answer-2" class="text-[11px] text-stone-500 mt-3 leading-relaxed hidden">
+            Yes, completely. Your personal goals, reflections, habits, and financial logs are stored securely with zero third-party monetization.
+          </p>
+        </div>
+
+        <!-- FAQ item 3 -->
+        <div class="bg-white border p-6 rounded-2xl cursor-pointer" onclick="toggleFaq(3)">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-stone-900 text-xs sm:text-sm">What reference does the version 1.2 Interactive Engine use?</h4>
+            <i id="faq-icon-3" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform"></i>
+          </div>
+          <p id="faq-answer-3" class="text-[11px] text-stone-500 mt-3 leading-relaxed hidden">
+            We refer directly to the structural conceptual designs modeled in the image 55d29783-1dd2-4905-b1d8-994f42d4055b.png layout.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. CONTACT PAGE VIEW -->
+    <div id="view-contact" class="view-transition hidden-view max-w-xl mx-auto px-6 py-16 space-y-8">
+      <div class="text-center space-y-4">
+        <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Reach Out</span>
+        <h2 class="text-4xl font-serif font-bold text-stone-900">Say Hello</h2>
+        <p class="text-stone-500 font-light text-xs sm:text-sm">Send us questions, suggestions, or simply share your balance story.</p>
+      </div>
+
+      <form onsubmit="handleContactSubmit(event)" class="bg-white border border-stone-200/60 p-8 rounded-3xl space-y-4 shadow-xs">
+        <div class="space-y-1">
+          <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Full Name</label>
+          <input type="text" id="contact-name" required placeholder="E.g., Zafira" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-liflowGreen">
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Email Address</label>
+          <input type="email" id="contact-email" required placeholder="name@example.com" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-liflowGreen">
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Message</label>
+          <textarea id="contact-msg" required rows="4" placeholder="How can we support your lifestyle journey?" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-liflowGreen resize-none"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-liflowGreen hover:bg-stone-700 text-white text-xs font-bold uppercase tracking-widest py-3 rounded-xl transition shadow-md">
+          Send Message
+        </button>
+      </form>
+    </div>
+
+    <!-- 7. MINDFULNESS JOURNAL (BLOG) VIEW -->
+    <div id="view-blog" class="view-transition hidden-view max-w-7xl mx-auto px-6 py-16 space-y-12">
+      <div class="text-center space-y-4">
+        <span class="text-xs font-bold text-liflowGreen uppercase tracking-wider block">Mindful Reads</span>
+        <h2 class="text-4xl font-serif font-bold text-stone-900">LIFLOW Journal</h2>
+        <p class="text-stone-500 font-light max-w-xl mx-auto">Explore thoughts and ideas written to help you find balance, flow gently, and avoid toxic hyper-productivity burnout.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 pt-6">
+        <!-- Article 1 -->
+        <article class="bg-white border border-stone-200/60 rounded-3xl overflow-hidden shadow-xs hover:shadow-md transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://placehold.co/600x400/7F987E/ffffff?text=Guilt-Free+Restarts" alt="Restarts" class="w-full h-48 object-cover">
+            <div class="p-6 space-y-3">
+              <div class="flex items-center gap-2 text-[10px] font-bold text-liflowGreen uppercase tracking-wider">
+                <span>Self Care</span> • <span>4 Min Read</span>
+              </div>
+              <h3 class="font-serif font-bold text-stone-900 text-lg leading-snug">The Art of Guilt-Free Restarts</h3>
+              <p class="text-xs text-stone-500 leading-relaxed font-light">Why conventional apps fail by punishing you for taking breaks, and how to embrace a supportive reset challenge with ease.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <button onclick="openMarketingArticle('restarts')" class="text-xs font-bold text-liflowGreen hover:text-stone-700 flex items-center gap-1">Read Article <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="bg-white border border-stone-200/60 rounded-3xl overflow-hidden shadow-xs hover:shadow-md transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://placehold.co/600x400/7BBCE6/ffffff?text=Mindful+Productivity" alt="Productivity" class="w-full h-48 object-cover">
+            <div class="p-6 space-y-3">
+              <div class="flex items-center gap-2 text-[10px] font-bold text-liflowBlue uppercase tracking-wider">
+                <span>Mindset</span> • <span>5 Min Read</span>
+              </div>
+              <h3 class="font-serif font-bold text-stone-900 text-lg font-bold leading-snug">Escaping the Toxic Hustle Trap</h3>
+              <p class="text-xs text-stone-500 leading-relaxed font-light">How to transition your productivity philosophy from "relentless streaks" to "harmonious cyclic balance" across 6 key pillars.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <button onclick="openMarketingArticle('hustle')" class="text-xs font-bold text-liflowGreen hover:text-stone-700 flex items-center gap-1">Read Article <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="bg-white border border-stone-200/60 rounded-3xl overflow-hidden shadow-xs hover:shadow-md transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://placehold.co/600x400/FCD385/ffffff?text=Tiny+Habits+Design" alt="Tiny Habits" class="w-full h-48 object-cover">
+            <div class="p-6 space-y-3">
+              <div class="flex items-center gap-2 text-[10px] font-bold text-amber-500 uppercase tracking-wider">
+                <span>Habits</span> • <span>3 Min Read</span>
+              </div>
+              <h3 class="font-serif font-bold text-stone-900 text-lg font-bold leading-snug">Small Moves, Big Streaks</h3>
+              <p class="text-xs text-stone-500 leading-relaxed font-light">The psychological blueprint of tiny habits. Learn how a single glass of water or 1-minute breathing resets your cognitive load.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
+            <button onclick="openMarketingArticle('tiny')" class="text-xs font-bold text-liflowGreen hover:text-stone-700 flex items-center gap-1">Read Article <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- 8. PUBLIC DEDICATED ARTICLE READING VIEW (NON-MODAL) -->
+    <div id="view-article-read" class="view-transition hidden-view max-w-3xl mx-auto px-6 py-16 space-y-8">
+      <button onclick="navigateTo('blog')" class="text-xs font-bold text-stone-500 hover:text-liflowGreen flex items-center gap-2 group transition">
+        <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Back to Journal
+      </button>
+
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <span id="read-category" class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-50 text-liflowGreen">Self Care</span>
+          <span id="read-time" class="text-[10px] text-stone-400 font-medium">4 Min Read</span>
+        </div>
+        <h1 id="read-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-stone-900 leading-tight">Title Placeholder</h1>
+        
+        <div class="flex items-center gap-3 pt-2 pb-6 border-b border-stone-200/50">
+          <div class="w-10 h-10 rounded-full bg-liflowGreen/10 flex items-center justify-center font-bold text-xs text-liflowGreen">LF</div>
+          <div>
+            <span class="text-xs font-bold text-stone-900 block">LIFLOW Editorial Board</span>
+            <span class="text-[10px] text-stone-400">Mindful Lifestyle Team</span>
+          </div>
+        </div>
+      </div>
+
+      <img id="read-image" src="" alt="Article cover image" class="w-full h-80 object-cover rounded-3xl my-6 shadow-sm">
+      
+      <article id="read-content" class="text-stone-600 font-light text-sm sm:text-base leading-relaxed space-y-6 text-justify whitespace-pre-line">
+        <!-- populated dynamically -->
+      </article>
+
+      <!-- Inside Article Newsletter Signup -->
+      <div class="bg-stone-100/50 border p-8 rounded-3xl space-y-4 mt-12 text-center max-w-2xl mx-auto">
+        <h4 class="font-serif font-bold text-stone-900 text-lg">Liked this journal note? 🌿</h4>
+        <p class="text-xs text-stone-500 max-w-sm mx-auto">Get monthly notes on guilt-free productivity, mindful living, and organic habits delivered straight to your inbox.</p>
+        <div class="flex max-w-md mx-auto gap-2 pt-2">
+          <input type="email" id="newsletter-email" placeholder="name@example.com" class="w-full bg-white border border-stone-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-liflowGreen">
+          <button onclick="handleNewsletterSubscribe()" class="bg-liflowGreen hover:bg-stone-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition shrink-0 shadow-sm">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- LEAD CAPTURE FORM modal (Integrating official logo) -->
+  <div id="lead-modal" class="fixed inset-0 bg-stone-950/40 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-md w-full rounded-[36px] overflow-hidden border border-stone-100 shadow-2xl p-8 space-y-6 relative">
+      <button onclick="closeLeadCapture()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 transition flex items-center justify-center absolute top-4 right-4">
+        <i class="fa-solid fa-xmark text-xs"></i>
+      </button>
+
+      <div class="text-center space-y-1">
+        <!-- Official Logo integrated directly from 6197209716312706366.jpg -->
+        <img src="liflow.png" alt="LIFLOW Logo" class="w-14 h-14 rounded-2xl mx-auto mb-3 shadow-md object-cover border border-stone-100">
+        <h3 id="lead-title" class="text-2xl font-serif font-bold text-stone-900">Start Your Onboarding</h3>
+        <p class="text-xs text-stone-400 font-light" id="lead-subtitle">Get private beta early access to the LIFLOW Personal OS ecosystem.</p>
+      </div>
+
+      <form onsubmit="handleLeadSubmit(event)" class="space-y-4">
+        <div class="space-y-1">
+          <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Your Name</label>
+          <input type="text" id="lead-name" required placeholder="E.g., Zafira" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-liflowGreen">
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Email Address</label>
+          <input type="email" id="lead-email-input" required placeholder="name@example.com" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-liflowGreen">
+        </div>
+        <button type="submit" class="w-full bg-liflowGreen hover:bg-stone-700 text-white text-xs font-bold uppercase tracking-widest py-3.5 rounded-xl transition shadow-md">
+          Join Mindful Beta
+        </button>
+      </form>
+      
+      <p class="text-[9px] text-stone-400 text-center italic">
+        *Zero spam. No credit cards needed. Safe and encrypted connection.
+      </p>
+    </div>
+  </div>
+
+  <!-- PREMIUM MARKETING FOOTER -->
+  <footer class="w-full border-t border-stone-200 bg-white/60 py-8">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <p class="text-xs text-stone-500 font-light max-w-xl">
+        "💚 LIFLOW is a complete personal life ecosystem supporting conscious and pressure-free productivity habits."
+      </p>
+      <div class="flex gap-4 text-xs font-semibold text-stone-400">
+        <a href="#" class="hover:text-liflowGreen transition">Privacy Policy</a>
+        <span>•</span>
+        <a href="#" class="hover:text-liflowGreen transition">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SMARTPHONE SIMULATION ENGINE AND SYSTEM LOGIC -->
+  <script>
+    // System core state for the Live Mockup Simulator
+    const state = {
+      activeTab: 'landing', // public website active view
+      currentSimulatedScreen: 'onboarding', // active screen of the mockup
+      
+      // Simulated App Data Model
+      isTimerRunning: false,
+      focusDuration: 25,
+      focusMinutes: 25,
+      focusSeconds: 0,
+      focusInterval: null,
+      
+      tasks: [
+        { id: 1, text: "Selesaikan Desain UI Liflow", category: "Productivity", priority: "High", completed: true },
+        { id: 2, text: "Meeting Organisasi", category: "Productivity", priority: "Medium", completed: false },
+        { id: 3, text: "Olahraga 30 menit", category: "Health", priority: "Medium", completed: false }
+      ],
+      habits: [
+        { id: 1, name: "Minum air 8 gelas", streak: 7 },
+        { id: 2, name: "Olahraga 30 menit", streak: 5 },
+        { id: 3, name: "Baca buku 15 menit", streak: 3 },
+        { id: 4, name: "Tidur sebelum 23.00", streak: 6 }
+      ],
+      transactions: [
+        { id: 1, name: "Makan", amount: 25000, type: "expense" },
+        { id: 2, name: "Transportasi", amount: 15000, type: "expense" },
+        { id: 3, name: "Belanja", amount: 80000, type: "expense" },
+        { id: 4, name: "Kopi", amount: 18000, type: "expense" }
+      ],
+      currentRefMood: '🙂',
+      lifeScore: 86
+    };
+
+    // Notification toast engine
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      
+      const toast = document.createElement('div');
+      toast.className = `flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl border text-xs font-semibold text-white pointer-events-auto bg-stone-900 border-stone-800 transition-all duration-300 transform translate-y-4 opacity-0`;
+      
+      let icon = 'fa-circle-check text-emerald-400';
+      if (type === 'info') icon = 'fa-circle-info text-sky-400';
+      if (type === 'warning') icon = 'fa-triangle-exclamation text-amber-400';
+      
+      toast.innerHTML = `
+        <i class="fa-solid ${icon}"></i>
+        <span class="leading-tight">${message}</span>
+      `;
+      
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 50);
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-[-10px]', 'opacity-0');
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }
+
+    // Public website page navigation
+    function navigateTo(targetView) {
+      state.activeTab = targetView;
+      const views = ['landing', 'about', 'features', 'pricing', 'faq', 'contact', 'blog', 'article-read'];
+      
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) {
+          el.classList.add('hidden-view');
+          el.classList.remove('active-view');
+        }
+        
+        // Handle navbar buttons highlighted state
+        const btn = document.getElementById(`nav-btn-${v}`);
+        if (btn) {
+          if (v === targetView) {
+            btn.className = "text-liflowGreen font-bold transition-all";
+          } else {
+            btn.className = "hover:text-liflowGreen transition-all";
+          }
+        }
+      });
+
+      const activeEl = document.getElementById(`view-${targetView}`);
+      if (activeEl) {
+        activeEl.classList.remove('hidden-view');
+        activeEl.classList.add('active-view');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // FAQ dynamic accordion switcher
+    function toggleFaq(index) {
+      const ans = document.getElementById(`faq-answer-${index}`);
+      const icon = document.getElementById(`faq-icon-${index}`);
+      
+      if (ans.classList.contains('hidden')) {
+        ans.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        ans.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    // Handle Contact Form Submit on the marketing website
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value;
+      showToast(`Thank you, ${name}! Your inquiry has been sent with warmth.`, 'success');
+      document.getElementById('contact-name').value = '';
+      document.getElementById('contact-email').value = '';
+      document.getElementById('contact-msg').value = '';
+    }
+
+    // Lead Capture Popup Trigger
+    function showLeadCapture(actionName) {
+      document.getElementById('lead-title').innerText = `${actionName} Onboarding`;
+      document.getElementById('lead-modal').classList.remove('hidden');
+    }
+
+    function closeLeadCapture() {
+      document.getElementById('lead-modal').classList.add('hidden');
+    }
+
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('lead-name').value;
+      showToast(`Congratulations, ${name}! Your slot in the LIFLOW private beta has been secured. Check your email shortly! 🌿`, 'success');
+      closeLeadCapture();
+      document.getElementById('lead-name').value = '';
+      document.getElementById('lead-email-input').value = '';
+    }
+
+    function handleNewsletterSubscribe() {
+      const email = document.getElementById('newsletter-email').value;
+      if (!email) {
+        showToast('Please insert a valid email address.', 'warning');
+        return;
+      }
+      showToast('Thank you! You have subscribed to the LIFLOW Mindful Journal.', 'success');
+      document.getElementById('newsletter-email').value = '';
+    }
+
+    // Scroll trigger for Mockup Experience
+    function scrollToInteractiveMockup() {
+      const element = document.getElementById('interactive-product-tour');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Public website mock database
+    const articlesDB = {
+      restarts: {
+        title: "The Art of Guilt-Free Restarts",
+        category: "Self Care",
+        readTime: "4 Min Read",
+        img: "https://placehold.co/800x480/7F987E/ffffff?text=Guilt-Free+Restarts",
+        content: `Conventional productivity systems are built on a dangerous premise: that human focus is a linear machine that never breaks down. When you lose a streak, they display warning lights or drop your statistics. This breeds counterproductive cognitive guilt.
+
+        At LIFLOW, we believe breaks are structural components of long-term consistency, not failures. If you took 3 days off, that is safe space. Our Soft Reset engine lets you choose lightweight challenges like the 3-Day Soft Reset or the 7-Day Gentle Recovery. This helps rebuild momentum on your terms without shame.
+
+        Remember, progress isn't about never stopping. It is about how gently and confidently you begin again. Your energy is a natural tide—embrace its cyclic nature.`
+      },
+      hustle: {
+        title: "Escaping the Toxic Hustle Trap",
+        category: "Mindset",
+        readTime: "5 Min Read",
+        img: "https://placehold.co/800x480/7BBCE6/ffffff?text=Mindful+Productivity",
+        content: `We live in a culture that commodifies human attention and demands constant throughput. But real lifestyle alignment doesn't happen when you're working 14 hours a day; it happens when all areas of your life exist in a centering, supportive relationship.
+
+        LIFLOW splits your personal energy coordinates into 6 balanced pillars: Productivity, Health, Finance, Learning, Relationships, and Self Care. 
+
+        By taking small steps instead of sprinting, you protect your focus reserve. Next time you feel pressured to check off everything, take a step back and look at your Balance Wheel. Balance, not velocity, is your path to true sustainability.`
+      },
+      tiny: {
+        title: "Small Moves, Big Streaks: The Power of Tiny Habits",
+        category: "Habits",
+        readTime: "3 Min Read",
+        img: "https://placehold.co/800x480/FCD385/ffffff?text=Tiny+Habits+Design",
+        content: `Why do most resolutions fail? Because we try to build massive changes on limited, highly volatile willpower. The secret to sustainable lifestyle design is starting ridiculously small.
+
+        A tiny habit—like drinking a glass of water, reading a single page, or taking 1-min deep breath—takes less than 20 seconds of willpower. Yet, completing it registers a dopamine release in your brain. 
+
+        This microscopic win triggers the desire to repeat the action tomorrow. Adopt one of our Tiny Habit Suggestions on your workspace dashboard today, and let LIFLOW safeguard your micro-streaks automatically.`
+      }
+    };
+
+    function openMarketingArticle(id) {
+      const art = articlesDB[id];
+      if (!art) return;
+      
+      document.getElementById('read-title').innerText = art.title;
+      document.getElementById('read-category').innerText = art.category;
+      document.getElementById('read-time').innerText = art.readTime;
+      document.getElementById('read-image').src = art.img;
+      document.getElementById('read-content').innerText = art.content;
+
+      const catBadge = document.getElementById('read-category');
+      if (id === 'restarts') catBadge.className = "text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-50 text-liflowGreen";
+      if (id === 'hustle') catBadge.className = "text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-sky-50 text-liflowBlue";
+      if (id === 'tiny') catBadge.className = "text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-amber-50 text-amber-600";
+
+      navigateTo('article-read');
+    }
+
+    // SMARTPHONE LIVE INTERACTIVE TOUR SIMULATOR ENGINE (THE 10 SCREENS)
+    function simulateMockupScreen(screenId) {
+      state.currentSimulatedScreen = screenId;
+      const viewport = document.getElementById('mockup-viewport');
+      if (!viewport) return;
+
+      const screens = ['onboarding', 'dashboard', 'planner', 'habits', 'money', 'focus', 'reflection', 'tomorrow', 'progress', 'profile'];
+      
+      // Update UI button highlights
+      screens.forEach(s => {
+        const btn = document.getElementById(`mock-btn-${s}`);
+        if (btn) {
+          if (s === screenId) {
+            btn.className = "p-3 text-left border rounded-2xl bg-white border-liflowGreen text-stone-800 text-xs font-semibold flex items-center gap-2.5 transition-all shadow-sm";
+            btn.children[0].className = "w-2.5 h-2.5 rounded-full bg-liflowGreen";
+          } else {
+            btn.className = "p-3 text-left border rounded-2xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs flex items-center gap-2.5 transition-all";
+            btn.children[0].className = "w-2.5 h-2.5 rounded-full bg-stone-300";
+          }
+        }
+      });
+
+      // Descriptions mapper
+      const descriptions = {
+        onboarding: {
+          title: "1. Welcome Onboarding Onboarding",
+          desc: "Set up your foundational focus parameters calmly. This is the first step of your lifestyle organization."
+        },
+        dashboard: {
+          title: "2. Live Ecosystem Dashboard",
+          desc: "A beautiful, unified glance of your entire day. Instantly review your Life Score, schedule status, budget remaining, and daily reflection reminders."
+        },
+        planner: {
+          title: "3. Interactive Daily Planner",
+          desc: "Create and complete activities. Set High, Medium, or Low priorities and group tasks cleanly. Try checking tasks inside the phone mockup!"
+        },
+        habits: {
+          title: "4. Habit Tracker Flow",
+          desc: "Track sustainable streaks. Click to build micro habit streams instantly with helpful tiny habit suggestions."
+        },
+        money: {
+          title: "5. Money Tracker Ledger",
+          desc: "Manage monthly and daily spending structures cleanly without confusing setup tables. Stay stress-free about money limits."
+        },
+        focus: {
+          title: "6. Meditative Focus Mode",
+          desc: "Mute digital distractions with the integrated Pomodoro and Deep Work timers. Try starting the live timer on the phone!"
+        },
+        reflection: {
+          title: "7. Meditative Daily Reflection",
+          desc: "Check in with your mood tonight. Keep a simple, quiet emotional journal and list achievements before you sleep."
+        },
+        tomorrow: {
+          title: "8. Automated Tomorrow Planner",
+          desc: "Complete the continuous lifestyle loop. Automatically transition your evening reflections into tomorrow's plan."
+        },
+        progress: {
+          title: "9. Progress & Analytics Engine",
+          desc: "Your visual Life Balance Radar Wheel. Monitor the coordinates of your 6 pillars to ensure productivity doesn't crowd out self-care."
+        },
+        profile: {
+          title: "10. Personalized Profile Space",
+          desc: "Your secure workspace parameters. Track your overall streak accomplishments, and customize themes calmly."
+        }
+      };
+
+      document.getElementById('tour-screen-title').innerText = descriptions[screenId].title;
+      document.getElementById('tour-screen-desc').innerText = descriptions[screenId].desc;
+
+      // Render inner phone viewport HTML based on screen
+      let html = '';
+      switch (screenId) {
+        
+        case 'onboarding':
+          // Updated with the new official brand logo image 6197209716312706366.jpg
+          html = `
+            <div class="space-y-4 text-center my-auto flex flex-col justify-center items-center py-6">
+              <img src="liflow.png" alt="LIFLOW App Logo" class="w-16 h-16 rounded-2xl shadow-md object-cover border border-stone-100">
+              <h4 class="font-serif font-bold text-stone-950 text-sm">Flow Your Life Better</h4>
+              <p class="text-[10px] text-stone-500 font-light leading-relaxed px-4">Atur hidupmu dengan lebih terarah, seimbang, dan bermakna setiap hari.</p>
+              <button onclick="simulateMockupScreen('dashboard')" class="bg-liflowGreen hover:bg-stone-700 text-white text-[9px] font-bold uppercase tracking-widest px-6 py-2.5 rounded-full transition shadow-sm w-full max-w-[160px]">Mulai Sekarang</button>
+            </div>
+          `;
+          break;
+
+        case 'dashboard':
+          html = `
+            <div class="space-y-3 text-left">
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-[7px] text-stone-400 block font-bold uppercase">Good Morning</span>
+                  <span class="text-xs font-bold text-stone-900 block leading-none">Zafira! 🌿</span>
+                </div>
+                <div class="w-6 h-6 rounded-full bg-stone-100 flex items-center justify-center font-bold text-[8px]">Z</div>
+              </div>
+
+              <!-- Life Score Box -->
+              <div class="bg-stone-50 p-2.5 rounded-xl border border-stone-200/40 flex justify-between items-center">
+                <div>
+                  <span class="text-[7px] text-stone-400 font-bold block uppercase">Life Score</span>
+                  <span class="text-base font-extrabold text-stone-900 block leading-none">${state.lifeScore}</span>
+                  <span class="text-[7px] bg-emerald-100 text-emerald-800 px-1 py-0.2 rounded-full font-bold">Excellent</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white border-2 border-liflowGreen flex items-center justify-center text-[9px] font-bold text-liflowGreen">86%</div>
+              </div>
+
+              <!-- Compact Statistics Grid -->
+              <div class="grid grid-cols-3 gap-1.5 text-center">
+                <div class="bg-stone-50 border p-1 rounded-lg">
+                  <span class="text-[6px] text-stone-400 uppercase block">Aktivitas</span>
+                  <span class="text-[9px] font-bold text-stone-800">4/6</span>
+                </div>
+                <div class="bg-stone-50 border p-1 rounded-lg">
+                  <span class="text-[6px] text-stone-400 uppercase block">Habit</span>
+                  <span class="text-[9px] font-bold text-stone-800">3/4</span>
+                </div>
+                <div class="bg-stone-50 border p-1 rounded-lg">
+                  <span class="text-[6px] text-stone-400 uppercase block">Budget</span>
+                  <span class="text-[9px] font-bold text-stone-800">Rp 45K</span>
+                </div>
+              </div>
+
+              <!-- Compact Schedule Stream -->
+              <div class="space-y-1">
+                <span class="text-[7px] font-bold text-stone-400 uppercase">Hari Ini:</span>
+                <div class="space-y-1 text-[8px]">
+                  <div class="flex items-center gap-2 p-1.5 bg-stone-50 rounded-lg">
+                    <span class="w-1.5 h-1.5 rounded-full bg-liflowGreen"></span>
+                    <span class="text-stone-700">Kuliah UI/UX Design (09:00)</span>
+                  </div>
+                  <div class="flex items-center gap-2 p-1.5 bg-stone-50 rounded-lg">
+                    <span class="w-1.5 h-1.5 rounded-full bg-liflowBlue"></span>
+                    <span class="text-stone-700">Olahraga 30 menit (16:00)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'planner':
+          const tList = state.tasks.map(t => `
+            <div class="flex items-center justify-between p-2 bg-stone-50 border rounded-xl text-[9px]">
+              <div class="flex items-center gap-2">
+                <button onclick="toggleMockTask(${t.id})" class="w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${t.completed ? 'bg-liflowGreen border-liflowGreen text-white' : 'bg-white border-stone-300'}">
+                  ${t.completed ? '<i class="fa-solid fa-check text-[7px]"></i>' : ''}
+                </button>
+                <span class="${t.completed ? 'line-through text-stone-400' : 'text-stone-700'} truncate max-w-[160px]">${t.text}</span>
+              </div>
+              <span class="text-[6px] font-bold ${t.priority === 'High' ? 'text-rose-500 bg-rose-50' : 'text-stone-400'} px-1 py-0.2 rounded">${t.priority}</span>
+            </div>
+          `).join('');
+
+          html = `
+            <div class="space-y-3 text-left">
+              <div class="border-b pb-1">
+                <span class="text-[7px] text-stone-400 font-bold uppercase">Daily Planner</span>
+                <span class="text-xs font-bold text-stone-900 block leading-none">Your Agenda</span>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <span class="text-[7px] font-bold text-stone-400 uppercase">Prioritas Hari Ini</span>
+                  <span class="text-[7px] text-liflowGreen font-bold">${state.tasks.filter(t=>t.completed).length}/${state.tasks.length} Selesai</span>
+                </div>
+                <div class="space-y-1.5 max-h-[300px] overflow-y-auto">
+                  ${tList}
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'habits':
+          const hList = state.habits.map(h => `
+            <div class="p-2 bg-stone-50 border rounded-xl flex justify-between items-center text-[9px]">
+              <div class="flex items-center gap-1.5">
+                <i class="fa-solid fa-fire text-amber-500"></i>
+                <span class="font-medium text-stone-700">${h.name}</span>
+              </div>
+              <span class="text-[8px] font-bold text-stone-400 bg-white border px-1.5 py-0.5 rounded-full">${h.streak} hari</span>
+            </div>
+          `).join('');
+
+          html = `
+            <div class="space-y-3 text-left">
+              <div class="border-b pb-1">
+                <span class="text-[7px] text-stone-400 font-bold uppercase">Habit Tracker</span>
+                <span class="text-xs font-bold text-stone-900 block leading-none">Keberlanjutan</span>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <span class="text-[7px] font-bold text-stone-400 uppercase">Kebiasaan Aktif</span>
+                  <span class="text-[7px] text-stone-400">Streak Terjaga</span>
+                </div>
+                <div class="space-y-1.5">
+                  ${hList}
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'money':
+          const trList = state.transactions.map(t => `
+            <div class="flex justify-between items-center p-1.5 bg-stone-50 border rounded-lg text-[8px]">
+              <span class="text-stone-700 font-medium">${t.name}</span>
+              <span class="text-rose-500 font-bold">-Rp ${t.amount.toLocaleString('id-ID')}</span>
+            </div>
+          `).join('');
+
+          html = `
+            <div class="space-y-3 text-left">
+              <div class="border-b pb-1">
+                <span class="text-[7px] text-stone-400 font-bold uppercase">Money Tracker</span>
+                <span class="text-xs font-bold text-stone-900 block leading-none">Ledger Bulanan</span>
+              </div>
+
+              <div class="bg-amber-50/50 p-2 border border-amber-200/40 rounded-xl text-center">
+                <span class="text-[7px] text-stone-400 block uppercase">Sisa Budget Aman</span>
+                <span class="text-sm font-black text-stone-900">Rp 375.000</span>
+              </div>
+
+              <div class="space-y-1.5">
+                <span class="text-[7px] font-bold text-stone-400 uppercase">Transaksi Terkini</span>
+                <div class="space-y-1 max-h-[180px] overflow-y-auto">
+                  ${trList}
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'focus':
+          html = `
+            <div class="space-y-4 text-center my-auto py-4 flex flex-col justify-between items-center h-full">
+              <div class="flex justify-center gap-1.5">
+                <button class="bg-stone-900 text-white text-[8px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">Pomodoro</button>
+                <button class="bg-stone-100 text-stone-400 text-[8px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">Deep Work</button>
+              </div>
+
+              <!-- Timer Dial -->
+              <div class="w-32 h-32 rounded-full border-4 border-stone-100 flex items-center justify-center relative shadow-inner">
+                <div class="text-center">
+                  <span class="text-2xl font-black text-stone-800 tracking-tight block leading-none">${state.focusMinutes}:${state.focusSeconds < 10 ? '0' + state.focusSeconds : state.focusSeconds}</span>
+                  <span class="text-[6px] text-stone-400 block uppercase tracking-widest mt-1">POMODORO ACTIVE</span>
+                </div>
+              </div>
+
+              <div class="flex gap-2">
+                <button onclick="toggleMockupTimer()" class="bg-liflowGreen hover:bg-stone-700 text-white text-[8px] font-bold px-4 py-2 rounded-full shadow-sm transition">
+                  ${state.isTimerRunning ? 'Pause' : 'Start Session'}
+                </button>
+                <button onclick="resetMockupTimer()" class="bg-stone-100 text-stone-600 text-[8px] font-semibold px-3 py-2 rounded-full transition">Reset</button>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'reflection':
+          html = `
+            <div class="space-y-3 text-left">
+              <div class="border-b pb-1">
+                <span class="text-[7px] text-stone-400 font-bold uppercase">Daily Reflection</span>
+                <span class="text-xs font-bold text-stone-900 block leading-none">Bagaimana Harimu?</span>
+              </div>
+
+              <div class="flex justify-center gap-2 py-1 text-lg">
+                <button class="opacity-60 hover:opacity-100">😢</button>
+                <button class="opacity-60 hover:opacity-100">🙁</button>
+                <button class="opacity-60 hover:opacity-100">😐</button>
+                <button class="opacity-100 scale-110 font-bold">🙂</button>
+                <button class="opacity-60 hover:opacity-100">🤩</button>
+              </div>
+
+              <div class="space-y-2 text-[8px]">
+                <div class="space-y-0.5">
+                  <label class="font-bold text-stone-500 uppercase block">Pencapaian Terbesarmu:</label>
+                  <input type="text" readonly value="Menyelesaikan struktur UI Liflow" class="w-full bg-stone-50 border rounded px-2 py-1 outline-none text-[8px]">
+                </div>
+                <div class="space-y-0.5">
+                  <label class="font-bold text-stone-500 uppercase block">Tantangan Hari Ini:</label>
+                  <input type="text" readonly value="Sedikit mengantuk di sore hari" class="w-full bg-stone-50 border rounded px-2 py-1 outline-none text-[8px]">
+                </div>
+              </div>
+
+              <button onclick="simulateMockupScreen('tomorrow')" class="w-full bg-liflowGreen text-white text-[8px] font-bold uppercase py-2 rounded-xl mt-2">Submit Refleksi</button>
+            </div>
+          `;
+          break;
+
+        case 'tomorrow':
+          html = `
+            <div class="space-y-3 text-left">
+              <div class="text-center py-1">
+                <span class="text-[7px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold uppercase">Siklus Terhubung 🔄</span>
+                <h4 class="font-bold text-stone-900 text-[10px] mt-1 leading-none">Plan Tomorrow</h4>
+              </div>
+
+              <div class="space-y-1 text-[8px]">
+                <label class="font-bold text-stone-500 uppercase">Arah Fokus Utama Esok:</label>
+                <div class="grid grid-cols-4 gap-1 text-center font-bold text-[7px]">
+                  <span class="p-1.5 border border-purple-200 bg-purple-50 text-purple-800 rounded">🎓 Kuliah</span>
+                  <span class="p-1.5 border text-stone-400 rounded">🏃 Sehat</span>
+                  <span class="p-1.5 border text-stone-400 rounded">📖 Belajar</span>
+                  <span class="p-1.5 border text-stone-400 rounded">🧘 Diri</span>
+                </div>
+              </div>
+
+              <div class="space-y-1 text-[8px]">
+                <label class="font-bold text-stone-500 uppercase">Aktivitas Esok:</label>
+                <input type="text" readonly value="Kuliah Digital Marketing" class="w-full bg-stone-50 border rounded px-2 py-1 outline-none text-[8px]">
+              </div>
+
+              <button onclick="showToast('Rencana esok berhasil diaktifkan ke dalam siklus harian!', 'success'); simulateMockupScreen('dashboard');" class="w-full bg-stone-900 text-white text-[8px] font-bold uppercase py-2 rounded-xl mt-2">Simpan Rencana Esok</button>
+            </div>
+          `;
+          break;
+
+        case 'progress':
+          html = `
+            <div class="space-y-3 text-left">
+              <div class="border-b pb-1">
+                <span class="text-[7px] text-stone-400 font-bold uppercase">Progress &amp; Analytics</span>
+                <span class="text-xs font-bold text-stone-900 block leading-none">Life Score Mingguan</span>
+              </div>
+
+              <div class="bg-stone-50 border rounded-xl p-2.5 text-center">
+                <span class="text-xl font-extrabold text-stone-900">86</span>
+                <span class="text-[7px] text-stone-400 block font-bold uppercase">Average Score</span>
+              </div>
+
+              <div class="space-y-1.5">
+                <span class="text-[7px] font-bold text-stone-400 uppercase">Ringkasan Pilar</span>
+                <div class="space-y-1 text-[8px] text-stone-600">
+                  <div class="flex justify-between">
+                    <span>Productivity</span>
+                    <span class="font-bold">82%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Health</span>
+                    <span class="font-bold">75%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Budget</span>
+                    <span class="font-bold">90%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'profile':
+          html = `
+            <div class="space-y-3 text-center py-4 flex flex-col justify-center h-full">
+              <div class="w-12 h-12 bg-stone-200 rounded-full flex items-center justify-center font-bold mx-auto mb-1 text-sm">Z</div>
+              <h4 class="font-bold text-stone-900 text-xs leading-none">Zafira</h4>
+              <span class="text-[8px] text-stone-400 font-light block leading-none">zafira@email.com</span>
+
+              <div class="bg-stone-50 border rounded-xl p-2.5 text-left text-[8px] space-y-1 max-w-[200px] mx-auto w-full">
+                <div class="flex justify-between">
+                  <span>Streak Terpanjang</span>
+                  <span class="font-bold text-liflowGreen">12 hari</span>
+                </div>
+                <div class="flex justify-between border-t pt-1">
+                  <span>Sistem Versi</span>
+                  <span class="font-mono">v1.2</span>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+      }
+
+      viewport.innerHTML = html;
+    }
+
+    // Toggle Task complete/incomplete status inside planner mockup
+    function toggleMockTask(id) {
+      const task = state.tasks.find(t => t.id === id);
+      if (task) {
+        task.completed = !task.completed;
+        simulateMockupScreen('planner');
+        showToast(task.completed ? 'Activity completed inside phone simulator! 🌟' : 'Activity incomplete.', 'info');
+      }
+    }
+
+    // Timer emulator routines
+    function toggleMockupTimer() {
+      if (state.isTimerRunning) {
+        clearInterval(state.focusInterval);
+        state.isTimerRunning = false;
+        showToast('Timer session paused on mockup.', 'info');
+      } else {
+        state.isTimerRunning = true;
+        showToast('Timer started on mockup screen. Focus actively!', 'success');
+        state.focusInterval = setInterval(() => {
+          if (state.focusSeconds === 0) {
+            if (state.focusMinutes === 0) {
+              clearInterval(state.focusInterval);
+              state.isTimerRunning = false;
+              showToast('Focus session complete! Excellent progress 🥳', 'success');
+              resetMockupTimer();
+              return;
+            }
+            state.focusMinutes--;
+            state.focusSeconds = 59;
+          } else {
+            state.focusSeconds--;
+          }
+          const m = state.focusMinutes < 10 ? '0' + state.focusMinutes : state.focusMinutes;
+          const s = state.focusSeconds < 10 ? '0' + state.focusSeconds : state.focusSeconds;
+          
+          const label = document.getElementById('mockup-viewport').querySelector('span.text-2xl');
+          if (label) {
+            label.innerText = `${m}:${s}`;
+          }
+        }, 1000);
+      }
+      simulateMockupScreen('focus');
+    }
+
+    function resetMockupTimer() {
+      clearInterval(state.focusInterval);
+      state.isTimerRunning = false;
+      state.focusMinutes = 25;
+      state.focusSeconds = 0;
+      simulateMockupScreen('focus');
+    }
+
+    // On load initialization
+    window.onload = function() {
+      navigateTo('landing');
+      simulateMockupScreen('onboarding');
+      
+      const today = new Date();
+      const timeFormatted = today.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: false });
+      const notchClock = document.getElementById('mockup-clock-time');
+      if (notchClock) notchClock.innerText = timeFormatted;
+    }
+  </script>
+</body>
+</html>
