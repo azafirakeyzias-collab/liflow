@@ -109,9 +109,44 @@
       <div class="flex items-center gap-3">
         <button onclick="navigateTo('login-view')" class="hidden sm:inline-block text-xs font-bold uppercase tracking-wider text-stone-600 hover:text-stone-900 px-4 py-2 transition">Login</button>
         <button onclick="openLeadCapture()" class="bg-liflowGreen hover:bg-stone-700 text-white text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full shadow-sm transition">Start Free</button>
+        
+        <!-- Mobile Hamburger Button -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden text-stone-600 hover:text-stone-900 p-2 transition focus:outline-none" aria-label="Buka Menu">
+          <i class="fa-solid fa-bars text-lg" id="mobile-menu-icon"></i>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-drawer" class="fixed inset-0 bg-stone-950/40 backdrop-blur-xs z-[90] hidden transition-opacity duration-300 opacity-0">
+    <div class="fixed top-0 right-0 w-4/5 max-w-xs h-full bg-white shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300" id="mobile-drawer-content">
+      <div class="space-y-6">
+        <div class="flex justify-between items-center pb-4 border-b">
+          <div class="flex items-center gap-2.5">
+            <img src="liflow.png" alt="LIFLOW Logo" class="w-8 h-8 rounded-lg object-cover" onerror="this.src='https://placehold.co/100/7F987E/ffffff?text=LF'">
+            <span class="font-bold text-stone-900 text-sm">LIFLOW</span>
+          </div>
+          <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-500 transition">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-3.5 text-xs font-bold tracking-wider uppercase text-stone-500">
+          <button onclick="navigateFromMobile('landing')" class="text-left py-2 hover:text-liflowGreen transition">Home</button>
+          <button onclick="navigateFromMobile('about')" class="text-left py-2 hover:text-liflowGreen transition">About</button>
+          <button onclick="navigateFromMobile('features-info')" class="text-left py-2 hover:text-liflowGreen transition">Features</button>
+          <button onclick="navigateFromMobile('journal-archive')" class="text-left py-2 hover:text-liflowGreen transition">Journal</button>
+          <button onclick="navigateFromMobile('pricing-info')" class="text-left py-2 hover:text-liflowGreen transition">Pricing</button>
+          <button onclick="navigateFromMobile('faq-info')" class="text-left py-2 hover:text-liflowGreen transition">FAQ</button>
+          <button onclick="navigateFromMobile('contact-info')" class="text-left py-2 hover:text-liflowGreen transition">Contact</button>
+        </nav>
+      </div>
+      <div class="space-y-3 pt-6 border-t border-stone-100">
+        <button onclick="navigateFromMobile('login-view')" class="w-full text-center py-2.5 text-xs font-bold uppercase tracking-wider text-stone-600 hover:text-stone-900 transition">Login</button>
+        <button onclick="openLeadFromMobile()" class="w-full bg-liflowGreen hover:bg-stone-700 text-white text-xs font-bold uppercase tracking-widest py-3 rounded-full text-center shadow-sm transition">Start Free</button>
+      </div>
+    </div>
+  </div>
 
   <!-- MAIN VIEW CONTAINER -->
   <main class="w-full flex-grow">
@@ -1183,6 +1218,39 @@
       },
       lifeScore: 86
     };
+
+    // Mobile Drawer Navigation Toggles
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      const content = document.getElementById('mobile-drawer-content');
+      const isHidden = drawer.classList.contains('hidden');
+
+      if (isHidden) {
+        drawer.classList.remove('hidden');
+        setTimeout(() => {
+          drawer.classList.add('opacity-100');
+          drawer.classList.remove('opacity-0');
+          content.classList.remove('translate-x-full');
+        }, 20);
+      } else {
+        content.classList.add('translate-x-full');
+        drawer.classList.remove('opacity-100');
+        drawer.classList.add('opacity-0');
+        setTimeout(() => {
+          drawer.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    function navigateFromMobile(viewId) {
+      toggleMobileMenu();
+      navigateTo(viewId);
+    }
+
+    function openLeadFromMobile() {
+      toggleMobileMenu();
+      openLeadCapture();
+    }
 
     // Motivational Quote Library
     const focusQuotes = [
