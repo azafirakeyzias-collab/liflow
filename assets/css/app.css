@@ -1,0 +1,85 @@
+/**
+ * ========================================================
+ * LIFLOW App Dashboard — Dedicated Styles
+ * ========================================================
+ */
+
+/* ── Sidebar ── */
+#app-sidebar {
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── App Section Transitions ── */
+.app-section {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.app-section.hidden-section {
+  opacity: 0;
+  transform: translateX(8px);
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+.app-section.active-section {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  position: relative;
+}
+
+/* ── Life Score Ring ── */
+.score-ring {
+  stroke-dasharray: 220;
+  stroke-dashoffset: calc(220 - (220 * var(--score)) / 100);
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+/* ── Habit streak badges ── */
+.streak-badge {
+  background: linear-gradient(135deg, #FCD385 0%, #F59E0B 100%);
+}
+
+/* ── Focus timer ring ── */
+@keyframes timerPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(127, 152, 126, 0.3); }
+  50%       { box-shadow: 0 0 0 12px rgba(127, 152, 126, 0); }
+}
+.timer-active { animation: timerPulse 2s ease-in-out infinite; }
+
+/* ── Pillar bar animation ── */
+@keyframes pillarGrow {
+  from { height: 0; }
+}
+.pillar-bar { animation: pillarGrow 1s ease forwards; }
+
+/* ── Card subtle hover ── */
+.app-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.app-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+}
+
+/* ── Mood selector ── */
+.mood-btn.selected {
+  transform: scale(1.25);
+  filter: none;
+}
+.mood-btn { filter: grayscale(0.6); transition: all 0.2s ease; }
+.mood-btn:hover { filter: none; transform: scale(1.15); }
+
+/* ── Sidebar nav item ── */
+.nav-item {
+  transition: all 0.2s ease;
+  border-radius: 12px;
+}
+.nav-item.active {
+  background: rgba(127, 152, 126, 0.12);
+  color: #7F987E;
+}
+.nav-item:not(.active):hover {
+  background: rgba(0,0,0,0.04);
+}
