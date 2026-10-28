@@ -1,7 +1,8 @@
 """
 ========================================================
-LIFLOW - Flask Web Application Deployment
+LIFLOW - Flask Web Application & Deployment Bridge
 Provides:
+- Streamlit auto-bridge if executed by Streamlit Cloud
 - Web App routing (Guest marketing site vs Authenticated Dashboard)
 - Auth API (/api/auth & /api/auth.php for JS compatibility)
 - State Management API (/api/state & /api/state.php)
@@ -11,6 +12,38 @@ Provides:
 """
 
 import os
+import sys
+
+# ────────────────────────────────────────────────────────
+# STREAMLIT CLOUD BRIDGE
+# If Streamlit Cloud runs `streamlit run app.py` by default,
+# seamlessly forward execution to streamlit_app.py!
+# ────────────────────────────────────────────────────────
+try:
+    _is_streamlit = False
+    if any("streamlit" in str(arg).lower() for arg in sys.argv):
+        _is_streamlit = True
+    elif "STREAMLIT_SERVER_PORT" in os.environ:
+        _is_streamlit = True
+    elif "streamlit" in sys.modules:
+        try:
+            from streamlit.runtime.scriptrunner import get_script_run_ctx
+            if get_script_run_ctx() is not None:
+                _is_streamlit = True
+        except Exception:
+            pass
+
+    if _is_streamlit:
+        import runpy
+        _cur_dir = os.path.dirname(os.path.abspath(__file__))
+        _st_target = os.path.join(_cur_dir, "streamlit_app.py")
+        runpy.run_path(_st_target, run_name="__main__")
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+
 import json
 import sqlite3
 from flask import Flask, request, jsonify, session, send_from_directory, redirect, url_for
@@ -145,6 +178,8 @@ def index():
     return render_guest_site()
 
 @app.route("/liflow.png")
+@app.route("/favicon.png")
+@app.route("/favicon.ico")
 def favicon():
     return send_from_directory(BASE_DIR, "liflow.png")
 

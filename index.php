@@ -17,6 +17,8 @@ if (isset($_GET['api'])) {
         require __DIR__ . '/api/auth.php';
     } elseif (in_array($action, ['save_state', 'get_state'])) {
         require __DIR__ . '/api/state.php';
+    } elseif (in_array($action, ['create_payment', 'confirm_payment', 'get_transaction'])) {
+        require __DIR__ . '/api/payment.php';
     } else {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Unknown API action.']);
