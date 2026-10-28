@@ -6,6 +6,11 @@
   <meta name="description" content="LIFLOW — Sistem manajemen hidup berkelanjutan (Life OS) premium. Daily Planner, Habit Tracker, Money Tracker, Focus Mode, dan Analytics dalam satu ekosistem.">
   <title>LIFLOW - Flow Your Life Better | Personal Life Operating System</title>
 
+  <!-- Favicon / Website Icon -->
+  <link rel="icon" type="image/png" href="liflow.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="liflow.png?v=2">
+  <link rel="apple-touch-icon" href="liflow.png?v=2">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -82,6 +87,10 @@
 
       <!-- Auth Buttons -->
       <div class="flex items-center gap-3">
+        <a href="<?= get_whatsapp_url('Halo LIFLOW, saya ingin berkonsultasi seputar Life OS...') ?>" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 px-3 py-2 rounded-full transition shadow-xs" title="Chat WhatsApp: <?= htmlspecialchars(defined('WHATSAPP_DISPLAY') ? WHATSAPP_DISPLAY : '0857-4254-6223') ?>">
+          <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i>
+          <span>WhatsApp</span>
+        </a>
         <?php if (isset($_SESSION['user_id'])): ?>
           <span class="text-xs text-stone-500 font-medium hidden md:inline">Halo, <strong class="text-stone-800"><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
           <button onclick="handleLogout()" class="border border-stone-200 hover:bg-stone-50 text-stone-700 text-xs font-bold uppercase py-2.5 px-5 rounded-full transition shadow-sm">Log Out</button>
@@ -112,6 +121,16 @@
         <button onclick="navigateToMobile('blog')"     class="text-left py-2 hover:text-liflowGreen transition">Blog</button>
         <button onclick="navigateToMobile('about')"    class="text-left py-2 hover:text-liflowGreen transition">About</button>
       </nav>
+      <div class="pt-4 border-t border-stone-100 space-y-2">
+        <span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest block">Customer Support</span>
+        <a href="<?= get_whatsapp_url('Halo LIFLOW Support, saya ingin bertanya seputar layanan LIFLOW...') ?>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 px-3 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold transition">
+          <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
+          <div class="overflow-hidden">
+            <span class="block leading-none">WhatsApp Support</span>
+            <span class="text-[10px] text-emerald-600 font-normal"><?= htmlspecialchars(defined('WHATSAPP_DISPLAY') ? WHATSAPP_DISPLAY : '0857-4254-6223') ?></span>
+          </div>
+        </a>
+      </div>
     </div>
     <p class="text-[9px] text-stone-400 italic">"Flow Your Life Better"</p>
   </div>

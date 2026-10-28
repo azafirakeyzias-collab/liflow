@@ -45,13 +45,23 @@
       <p class="text-xs text-stone-500 font-light max-w-xl">
         "💚 LIFLOW is a complete personal life ecosystem supporting conscious and pressure-free productivity habits."
       </p>
-      <div class="flex gap-4 text-xs font-semibold text-stone-400">
+      <div class="flex flex-wrap justify-center md:justify-end items-center gap-3 sm:gap-4 text-xs font-semibold text-stone-400">
         <a href="#" class="hover:text-liflowGreen transition">Privacy Policy</a>
         <span>•</span>
         <a href="#" class="hover:text-liflowGreen transition">Terms of Service</a>
+        <span>•</span>
+        <a href="<?= get_whatsapp_url('Halo LIFLOW Support, saya ingin bertanya mengenai layanan LIFLOW.') ?>" target="_blank" rel="noopener noreferrer" class="text-emerald-700 hover:text-emerald-800 transition flex items-center gap-1.5 font-bold">
+          <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> WhatsApp: <?= htmlspecialchars(defined('WHATSAPP_DISPLAY') ? WHATSAPP_DISPLAY : '0857-4254-6223') ?>
+        </a>
       </div>
     </div>
   </footer>
+
+  <!-- Midtrans Payment & Receipt Modal -->
+  <?php require __DIR__ . '/midtrans_modal.php'; ?>
+
+  <!-- Floating WhatsApp Widget -->
+  <?php require __DIR__ . '/whatsapp_widget.php'; ?>
 
   <!-- Application JavaScript -->
   <script src="assets/js/app.js"></script>

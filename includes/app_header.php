@@ -2,8 +2,13 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>LIFLOW App — <?= htmlspecialchars($_SESSION['username'] ?? 'Dashboard') ?></title>
+
+  <!-- Favicon / Website Icon -->
+  <link rel="icon" type="image/png" href="liflow.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="liflow.png?v=2">
+  <link rel="apple-touch-icon" href="liflow.png?v=2">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,4 +52,4 @@
 </head>
 <body class="bg-liflowBg text-stone-800 antialiased font-sans">
   <div id="toast-container" class="fixed bottom-6 right-6 z-[200] flex flex-col gap-2.5 pointer-events-none"></div>
-  <div class="flex h-screen overflow-hidden">
+  <div class="flex h-screen w-full overflow-hidden bg-liflowBg">

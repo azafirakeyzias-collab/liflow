@@ -159,4 +159,21 @@
       </div>
     </div>
   </div>
+
+  <!-- Trust CTA Banner -->
+  <div class="mt-8 bg-gradient-to-r from-emerald-50 via-teal-50 to-stone-50 border border-emerald-200/80 p-6 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+    <div class="flex items-center gap-4 text-center sm:text-left">
+      <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-xl shadow-md shrink-0">
+        <i class="fa-solid fa-crown text-amber-300"></i>
+      </div>
+      <div>
+        <h4 class="font-serif font-bold text-stone-900 text-base">Tertarik Membuka Semua Fitur Premium Ini?</h4>
+        <p class="text-xs text-stone-500 font-light">10+ pengguna baru telah bergabung dan bertransaksi hari ini. Mulai dari Rp 15.000/bulan.</p>
+      </div>
+    </div>
+    <button onclick="navigateTo('pricing'); switchServiceTab('proofs');" class="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-2 shadow-md hover:shadow-lg shrink-0">
+      <i class="fa-solid fa-receipt text-emerald-200"></i>
+      <span>Lihat 10 Bukti Transaksi</span>
+    </button>
+  </div>
 </div>

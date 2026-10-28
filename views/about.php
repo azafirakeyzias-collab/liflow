@@ -48,4 +48,23 @@
       <p class="text-xs text-stone-500 font-light leading-relaxed">Roadmap aktif: Minggu 4 kami berencana deploy ke Flask/Streamlit untuk aksesibilitas yang lebih luas.</p>
     </div>
   </div>
+
+  <!-- WhatsApp & Customer Care Section -->
+  <div class="bg-gradient-to-br from-emerald-50 via-white to-teal-50 border border-emerald-100 p-8 rounded-3xl space-y-4 shadow-xs">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100/70 text-emerald-800 text-[10px] font-bold uppercase tracking-wider rounded-full">
+          <i class="fa-brands fa-whatsapp text-emerald-600"></i> Fast Response Support
+        </div>
+        <h3 class="font-serif font-bold text-stone-900 text-2xl">Terhubung Langsung dengan Tim Kami</h3>
+        <p class="text-xs text-stone-600 leading-relaxed font-light max-w-xl">
+          Punya pertanyaan seputar instalasi lokal WAMP, paket bundling, atau masukan untuk sistem Life OS? Hubungi nomor resmi WhatsApp kami: <strong class="text-stone-900 font-semibold"><?= htmlspecialchars(defined('WHATSAPP_DISPLAY') ? WHATSAPP_DISPLAY : '0857-4254-6223') ?></strong>.
+        </p>
+      </div>
+      <a href="<?= get_whatsapp_url('Halo Tim LIFLOW, saya ingin terhubung dan berkonsultasi mengenai LIFLOW Life OS.') ?>" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-bold uppercase tracking-wider rounded-2xl transition shadow-md hover:shadow-lg flex items-center gap-2.5 shrink-0">
+        <i class="fa-brands fa-whatsapp text-lg"></i>
+        <span>Chat via WhatsApp</span>
+      </a>
+    </div>
+  </div>
 </div>

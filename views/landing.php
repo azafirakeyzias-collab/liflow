@@ -214,6 +214,14 @@
       <div class="bg-white border p-6 rounded-3xl shadow-xs"><span class="text-4xl font-extrabold text-liflowYellow block">4.9★</span><span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block mt-2">Rating Bundling</span></div>
       <div class="bg-white border p-6 rounded-3xl shadow-xs"><span class="text-4xl font-extrabold text-liflowPurple block">0%</span><span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block mt-2">Punishment Design</span></div>
     </div>
+
+    <!-- Live Social Proof Banner -->
+    <div class="mt-8 text-center">
+      <button onclick="navigateTo('pricing'); switchServiceTab('proofs');" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-semibold transition shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Lihat 10 Bukti Pembayaran Fitur Premium Terbaru Hari Ini ➔</span>
+      </button>
+    </div>
   </section>
 
   <!-- BLOG TEASER -->
