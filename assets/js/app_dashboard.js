@@ -80,6 +80,29 @@ const viewMeta = {
   profile:    { title: 'Profil Akun', sub: 'Informasi akun dan preferensi LIFLOW' },
 };
 
+function toggleSidebar(forceState) {
+  const sidebar = document.getElementById('app-sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  if (!sidebar) return;
+
+  const isCurrentlyOpen = !sidebar.classList.contains('-translate-x-full');
+  const shouldOpen = typeof forceState === 'boolean' ? forceState : !isCurrentlyOpen;
+
+  if (shouldOpen) {
+    sidebar.classList.remove('-translate-x-full');
+    if (backdrop) {
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100', 'pointer-events-auto');
+    }
+  } else {
+    sidebar.classList.add('-translate-x-full');
+    if (backdrop) {
+      backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+    }
+  }
+}
+
 function appNav(viewId) {
   if (!viewMeta[viewId]) return;
   appState.currentView = viewId;
@@ -94,6 +117,33 @@ function appNav(viewId) {
   if (activeBtn) {
     activeBtn.classList.add('active', 'text-liflowGreen', 'font-semibold', 'bg-emerald-50/60');
     activeBtn.classList.remove('text-stone-600', 'font-medium');
+  }
+
+  // Toggle active button in mobile bottom nav
+  document.querySelectorAll('#mobile-bottom-nav .bnav-item').forEach(btn => {
+    btn.classList.remove('text-liflowGreen', 'active');
+    btn.classList.add('text-stone-500');
+    const span = btn.querySelector('span');
+    if (span) {
+      span.classList.remove('font-semibold');
+      span.classList.add('font-medium');
+    }
+  });
+
+  const activeBnav = document.getElementById(`bnav-${viewId}`);
+  if (activeBnav) {
+    activeBnav.classList.add('text-liflowGreen', 'active');
+    activeBnav.classList.remove('text-stone-500');
+    const span = activeBnav.querySelector('span');
+    if (span) {
+      span.classList.add('font-semibold');
+      span.classList.remove('font-medium');
+    }
+  }
+
+  // Auto-close sidebar on mobile after navigating
+  if (window.innerWidth < 1024) {
+    toggleSidebar(false);
   }
 
   // Toggle active section
@@ -214,7 +264,7 @@ function renderTasks() {
     } else {
       dashListEl.innerHTML = preview.map(t => `
         <div class="flex items-center justify-between text-xs py-1.5 border-b border-stone-50 last:border-none">
-          <div class="flex items-center gap-2 truncate">
+          <div class="flex items-center gap-2 truncate pr-2 min-w-0">
             <button onclick="toggleTask(${t.id})" class="w-4 h-4 rounded border flex items-center justify-center shrink-0 ${t.completed ? 'bg-liflowGreen border-liflowGreen text-white text-[9px]' : 'border-stone-300'}">
               ${t.completed ? '<i class="fa-solid fa-check"></i>' : ''}
             </button>
@@ -319,7 +369,7 @@ function renderHabits() {
   if (dashListEl) {
     dashListEl.innerHTML = appState.habits.slice(0, 3).map(h => `
       <div class="flex items-center justify-between text-xs py-1.5 border-b border-stone-50 last:border-none">
-        <div class="flex items-center gap-2 truncate">
+        <div class="flex items-center gap-2 truncate pr-2 min-w-0">
           <button onclick="toggleHabit(${h.id})" class="w-4 h-4 rounded border flex items-center justify-center shrink-0 ${h.doneToday ? 'bg-liflowGreen border-liflowGreen text-white text-[9px]' : 'border-stone-300'}">
             ${h.doneToday ? '<i class="fa-solid fa-check"></i>' : ''}
           </button>
@@ -505,15 +555,14 @@ function setFocusMode(mode) {
   appState.focus.minutes = appState.focus.durationMinutes;
   appState.focus.seconds = 0;
 
-  // Toggle button styles
-  const btnPomo = document.getElementById('mode-btn-pomodoro');
-  const btnDeep = document.getElementById('mode-btn-deepwork');
+  const activeCls = 'px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl text-xs sm:text-sm font-bold bg-liflowGreen text-white transition shadow-sm';
+  const inactiveCls = 'px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl text-xs sm:text-sm font-bold bg-stone-100 text-stone-600 hover:bg-stone-200 transition';
   if (mode === 'pomodoro') {
-    if (btnPomo) { btnPomo.className = 'px-6 py-3 rounded-2xl text-sm font-bold bg-liflowGreen text-white transition'; }
-    if (btnDeep) { btnDeep.className = 'px-6 py-3 rounded-2xl text-sm font-bold bg-stone-100 text-stone-600 transition'; }
+    if (btnPomo) btnPomo.className = activeCls;
+    if (btnDeep) btnDeep.className = inactiveCls;
   } else {
-    if (btnPomo) { btnPomo.className = 'px-6 py-3 rounded-2xl text-sm font-bold bg-stone-100 text-stone-600 transition'; }
-    if (btnDeep) { btnDeep.className = 'px-6 py-3 rounded-2xl text-sm font-bold bg-liflowGreen text-white transition'; }
+    if (btnPomo) btnPomo.className = inactiveCls;
+    if (btnDeep) btnDeep.className = activeCls;
   }
 
   const labelEl = document.getElementById('focus-mode-label');

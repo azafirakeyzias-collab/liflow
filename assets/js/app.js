@@ -122,12 +122,12 @@ function _switchTab(tabIds, activeId, prefix) {
     const active = t === activeId;
     if (el)  el.classList.toggle('hidden', !active);
     if (btn) btn.className = active
-      ? 'px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white text-stone-900 shadow-sm transition'
-      : 'px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-400 hover:text-stone-600 transition';
+      ? 'inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white text-stone-900 shadow-sm transition'
+      : 'inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-stone-400 hover:text-stone-600 transition';
   });
 }
 
-function switchServiceTab(tab) { _switchTab(['plans','bundling','faq'], tab, 'stab-'); }
+function switchServiceTab(tab) { _switchTab(['plans','proofs','bundling','faq'], tab, 'stab-'); }
 function switchFeatureTab(tab) { _switchTab(['planning','wellness','finance','analytics'], tab, 'ftab-'); }
 
 // ══════════════════════════════════════════════════════════
